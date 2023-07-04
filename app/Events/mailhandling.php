@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Events;
 use App\Models\userinfos;
 use Illuminate\Broadcasting\Channel;
@@ -14,7 +13,6 @@ class mailhandling
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $user;
-
     /**
      * Create a new event instance.
      */
@@ -22,7 +20,6 @@ class mailhandling
     {
         $this->user = $user;
     }
-
     /**
      * Get the channels the event should broadcast on.
      *
@@ -30,8 +27,8 @@ class mailhandling
      */
     public function broadcastOn(): array
     {
-        return [
-            new PrivateChannel('channel-name'),
-        ];
+    return [
+        new PrivateChannel('channel-name'),
+    ]; 
     }
 }

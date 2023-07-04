@@ -156,28 +156,18 @@ $("#add").submit(function(e) {
             $('#add_btn').html('update');
         },
         error: function(reject) {
-    if (reject.status === 422) {
-        var errorResponse = $.parseJSON(reject.responseText);
-        console.log(errorResponse);
-
-        // Display the general error message
-        console.log(errorResponse.message);
-
-        // Iterate over the errors object
-        $.each(errorResponse.errors, function(key, val) {
-            console.log(key);
-            console.log(val[0]); // Display the error message for each field
-            
-            // Display the error message on the form, assuming you have corresponding elements
-            $("#" + key + "_error").text(val[0]);
-        });
-    }
-}
-
-
-
+            if (reject.status === 422) {
+                var errorResponse = $.parseJSON(reject.responseText);
+                console.log(errorResponse);
+                console.log(errorResponse.message);
+                $.each(errorResponse.errors, function(key, val) {
+                    console.log(key);
+                    console.log(val[0]); 
+                    $("#" + key + "_error").text(val[0]);
+                });
+            }
+        }
     });
-
 });
 
 // $(document).ready(function() {

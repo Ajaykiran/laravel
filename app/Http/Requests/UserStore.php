@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class UserStore extends FormRequest
 {
@@ -29,7 +30,24 @@ class UserStore extends FormRequest
             // 'qualification' => 'required|string|max:255',
             // 'gender' => 'required|in:male,female',
             // 'address' => 'required|string|max:255',
-            'image' => 'required|mimes:xls,xlsx',
+            'image' => [
+                'required',
+                'distinct',
+                'mimes:xls,xlsx',
+                function ($attribute, $value, $fail) {
+                    $file = $this->file('image');
+                    $spreadsheet = IOFactory::load($file->getRealPath());
+                    $worksheet = $spreadsheet->getActiveSheet();
+                    $rows = $worksheet->toArray();
+                    $data = [];
+                    foreach ($rows as $row) {
+                        if (in_array($row, $data)) {
+                            $fail("Duplicate data found in the uploaded file.");
+                        }
+                        $data[] = $row;
+                    }
+                },
+            ],
         ];
     }
 }

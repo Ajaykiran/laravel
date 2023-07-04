@@ -131,7 +131,6 @@ class UserController extends Controller
                 $isFirstRow = false;
                 continue; // Skip the first row
             }
-
             $existingData = excel_data::where('name', $row[0])
                              ->where('degree', $row[1])
                              ->first();
@@ -142,6 +141,7 @@ class UserController extends Controller
                     'degree' => $row[1],
                 ]);
             }
+            
         }
         // dd($request->sports);
         $image = $request->image;

@@ -16,14 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
 //calender
 Route::get('/show', [EventController::class, 'index']);
 Route::get('/home', [LoginController::class, 'login']);
 Route::post('/manage-event', [EventController::class, 'manageEvent']);
-
 
 //login
 Auth::routes();
@@ -31,7 +27,6 @@ Auth::routes();
 //show data
 Route::post('users.index', [UserController::class, 'index'])->name('users.index');
 Route::get('showdata', [UserController::class, 'index'])->name('show');
-
 
 //ajax edit, delete , update and store
 Route::resource('crud', UserController::class);
@@ -41,7 +36,6 @@ Route::resource('crud', UserController::class);
 //  //ajax edit, delete , update and store
 // Route::resource('crud', UserController::class);
 // });
-
 
 //MultiRole staff
 Route::middleware(['user-role:staff'])->group(function()

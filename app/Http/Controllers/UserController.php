@@ -137,7 +137,6 @@ class UserController extends Controller
             if (!$existingData) {
                 excel_data::create([
                     'name' => $row[0],
-
                     'degree' => $row[1],
                 ]);
             }
